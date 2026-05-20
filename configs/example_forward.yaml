@@ -1,0 +1,32 @@
+# PEPRMT-Rice — example forward-run configuration.
+#
+# Runs the model end-to-end with built-in default parameters against the
+# bundled example input CSV. Useful as a smoke-test after installing the
+# package and as a starting point for your own runs.
+#
+# To run:
+#     peprmt-rice run --config configs/example_forward.yaml
+
+simulation:
+  mode: forward      # 'forward' (deterministic) or 'mcmc' (Bayesian calibration)
+  seed: 42
+
+input:
+  path: ../data/example/example_input.csv
+  date_column: Date
+  # column_map lets you map your own CSV column names to the canonical names.
+  # The mapping below is illustrative; remove or extend as needed.
+  column_map:
+    # TairAvg: TA
+    # SWdown: PAR
+
+parameters:
+  source: defaults   # 'defaults' uses GPP/NEE/CH4 .defaults();
+                     # 'file' reads values from `path` (YAML or CSV).
+  # path: ../configs/parameters_my_site.yaml
+
+output:
+  dir: ../outputs/example_forward
+  save_chains: false      # ignored in forward mode
+  save_figures: true
+  format: csv             # 'csv' or 'parquet'

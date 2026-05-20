@@ -1,0 +1,37 @@
+# PEPRMT-Rice — example MCMC calibration configuration.
+#
+# Fits the three model blocks (GPP, NEE/Reco, CH4) sequentially against the
+# observation columns present in the input CSV. Posterior-mean parameters
+# are then used to run a final deterministic forward pass.
+#
+# This config assumes your input CSV contains NEE and CH4 columns.
+# Adjust `target_fluxes` to match what your data actually provides.
+#
+# To run:
+#     peprmt-rice run --config configs/example_mcmc.yaml
+
+simulation:
+  mode: mcmc
+  seed: 42
+  niter: 5000              # MCMC iterations per model block
+  burnin: 1000             # samples discarded at the start of each chain
+  target_fluxes:           # which observation columns to fit
+    - NEE
+    - CH4
+  # loss_function: sse     # default; one of "sse" (Gaussian), "mae" (Laplace
+                           # — matches the paper's PostProcessing.sum_squares_ch4),
+                           # or "rmse" (older paper variant).
+
+input:
+  path: ../data/example/example_input.csv
+  date_column: Date
+
+parameters:
+  source: file
+  path: ../configs/priors.yaml
+
+output:
+  dir: ../outputs/example_mcmc
+  save_chains: true        # keep raw chains under outputs/.../mcmc_chains/
+  save_figures: true
+  format: csv

@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "peprmt-rice"
+version = "0.1.0"
+description = "Adapted PEPRMT model for paddy-rice carbon and methane fluxes."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Tang et. al.,2026" },
+]
+keywords = ["biogeochemistry", "methane", "rice", "carbon", "ecosystem-model", "mcmc"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Earth Science",
+    "Topic :: Scientific/Engineering :: Hydrology",
+]
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "scipy>=1.10",
+    "scikit-learn>=1.2",
+    "statsmodels>=0.14",
+    "matplotlib>=3.6",
+    "pyyaml>=6.0",
+    "pymcmcstat>=1.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+    "black>=23.0",
+    "mypy>=1.0",
+]
+docs = [
+    "mkdocs>=1.5",
+    "mkdocs-material>=9.0",
+]
+
+[project.scripts]
+peprmt-rice = "peprmt_rice.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Kiki-us/PEPRMT-RICE"
+Documentation = "https://github.com/Kiki-us/PEPRMT-RICE/tree/main/docs"
+Issues = "https://github.com/Kiki-us/PEPRMT-RICE/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+peprmt_rice = ["py.typed"]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: tests that take more than a few seconds (run with --run-slow or `pytest -m slow`)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]

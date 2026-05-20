@@ -1,0 +1,44 @@
+# MCMC priors for PEPRMT-Rice.
+#
+# Each entry is a [low, high, initial] triple:
+#   - low, high : flat-prior bounds (the sampler will be rejected outside).
+#   - initial   : starting position of the chain.
+#
+# Reasonable defaults for a temperate rice paddy. Tighten the bounds for your
+# site if you have stronger prior information.
+
+gpp:
+  LUE_max: [0.5, 5.0, 1.73]
+  k:       [0.1, 1.5, 1.02]
+  Topt:    [15.0, 35.0, 26.7]
+  Ha:      [40.0, 200.0, 118.0]
+  Hd:      [100.0, 350.0, 212.0]
+  p:       [0.5, 1.0, 0.87]
+
+# NOTE: activation energies are in J/mol, matching the model's internal units.
+nee:
+  alpha_soc:            [1000.0, 10000.0, 2972.0]
+  ea_soc:               [5000.0, 90000.0, 16881.0]
+  km_soc:               [0.01, 100000.0, 0.16]
+  alpha_labile:         [1000.0, 10000.0, 2292.0]
+  ea_labile:            [5000.0, 90000.0, 51345.0]
+  km_labile:            [0.1, 100.0, 7.53]
+  Aa:                   [1.0, 500.0, 175.5]
+  Ab:                   [1.0, 500.0, 71.0]
+  Ea_above:             [1000.0, 100000.0, 20769.0]
+  Ea_root:              [1000.0, 100000.0, 30057.0]
+  percent_avail_soc:    [0.001, 0.5, 0.058]
+  percent_avail_labile: [0.05, 1.0, 0.245]
+  r_mic:                [0.001, 0.2, 0.0136]
+
+ch4:
+  # Initial values match CH4Parameters.defaults (HRA 2016 true posterior at
+  # full float64 precision; see src/peprmt_rice/models/ch4.py CH4Parameters.defaults
+  # docstring and reproducibility/hra_2016/paper_posterior.csv).
+  M_alpha1:  [0.0001, 1.0, 0.0176298946581885]
+  M_alpha2:  [0.0001, 1.0, 0.2609431838966145]
+  K_act2gas: [0.01,   1.0, 0.6156160242203926]
+  Kr:        [0.001,  1.0, 0.1259719094787869]
+  Kp:        [0.01,   1.0, 0.8170217461963778]
+  Kh:        [0.001,  1.0, 0.1299280032790325]
+  K_Eh:      [0.01,   1.0, 0.6798033838574522]

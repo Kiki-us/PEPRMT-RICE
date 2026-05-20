@@ -1,0 +1,30 @@
+# PEPRMT-Rice — example run that skips the GPP model.
+#
+# Use this when you already have a partitioned GPP time series (e.g. from
+# REddyProc or another flux-partitioning tool) and want the model to run
+# only NEE/Reco and CH4. The input CSV must include a `GPP` column;
+# PAR, VPD, and LAI are not required in this mode.
+#
+# To run:
+#     peprmt-rice run --config configs/example_observed_gpp.yaml
+
+simulation:
+  mode: forward
+  use_observed_gpp: true     # skip the GPP module; use GPP directly
+  seed: 42
+
+input:
+  path: ../data/example/example_input.csv
+  date_column: Date
+  # If your file uses a different name for the observed GPP column,
+  # rename it here.
+  column_map:
+    # GPP_partitioned: GPP
+
+parameters:
+  source: defaults
+
+output:
+  dir: ../outputs/example_observed_gpp
+  save_figures: true
+  format: csv
